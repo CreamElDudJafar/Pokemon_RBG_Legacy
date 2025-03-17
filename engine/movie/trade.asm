@@ -197,7 +197,7 @@ LoadTradingGFXAndMonNames:
 	jp GetMonName
 
 Trade_LoadMonPartySpriteGfx:
-	ld a, %11010000
+	ld a, %11100000
 	ldh [rOBP1], a
 	farjp LoadMonPartySpriteGfx
 
@@ -605,9 +605,13 @@ Trade_AnimCircledMon:
 	ldh a, [rBGP]
 	xor $3c ; make link cable flash
 	ldh [rBGP], a
+
+	ldh a, [rOBP1]
+	xor $30 ; make Circle flash
+	ldh [rOBP1], a
+
 	ld hl, wShadowOAMSprite00TileID
 	ld de, $4
-
 	ld c, $4
 .mon_loop
 	ld a, [hl]

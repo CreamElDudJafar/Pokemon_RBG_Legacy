@@ -1955,6 +1955,11 @@ wUnusedC000:: db
 
 wSum:: dw
 
+wPartySpritePaletteSlot::
+; saved copy of SPRITESTATEDATA1_PICTUREID
+wSavedSpritePictureID:: db
+; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
+
 ENDU
 ;;;;;;;;;;
 
@@ -2037,6 +2042,10 @@ wMissableObjectFlags:: flag_array $100
 wMissableObjectFlagsEnd::
 
 	ds 7
+
+;wPartySpritePaletteSlot::
+; saved copy of SPRITESTATEDATA1_PICTUREID
+;wSavedSpritePictureID:: db
 
 ; saved copy of SPRITESTATEDATA1_IMAGEINDEX (used for sprite facing/anim)
 wSavedSpriteImageIndex:: db

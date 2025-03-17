@@ -3,6 +3,8 @@ DEF GEN_2_MUSIC    EQU 0
 
 DEF SNOW           EQU 0
 
+DEF ALT_PARTY_MENU_COLOR EQU 0
+
 INCLUDE "macros/asserts.asm"
 INCLUDE "macros/const.asm"
 INCLUDE "macros/predef.asm"
