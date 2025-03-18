@@ -35,7 +35,7 @@ Trade_InitGameboyTransferGfx_ColorHook:
 	; Set the palettes to use for the pokemon sprites
 	ld b, $30
 	ld hl, W2_SpritePaletteMap
-	ld a, 2 ; ATK_PAL_GREY
+	ld a, 0 ; ATK_PAL_GREY
 .loop
 	ld [hl], a
 	set 6, l

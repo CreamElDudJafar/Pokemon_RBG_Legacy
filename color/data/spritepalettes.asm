@@ -94,11 +94,19 @@ MapSpritePalettesIndoor: ; Taken from pokemon GSC.
 	RGB 13,13,13
 	RGB 0,0,0
 
+IF SNOW
 ; PAL_OW_TREE
 	RGB 18,24,9
 	RGB 15,20,1
 	RGB 9,13,0
 	RGB 7,7,7
+ELSE
+; PAL_OW_TREE
+	RGB 18,24,9
+	RGB 15,20,1
+	RGB 9,13,0
+	RGB 7,7,7
+ENDC
 
 ; PAL_OW_ROCK
 	RGB 30,28,26

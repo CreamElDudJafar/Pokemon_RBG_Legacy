@@ -10,7 +10,7 @@ CopyMonPicFromBGToSpriteVRAM:
 	call CopyData
 
 	; Ghost/marowak palette fade effect uses OBP1
-	ld a, 1
+	ld a, %11110000
 	ld [W2_UseOBP1], a
 	ld [W2_ForceOBPUpdate], a
 

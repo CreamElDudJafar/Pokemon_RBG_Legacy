@@ -97,12 +97,25 @@ RefreshPalettesPreVBlank:
 .doNextSprPal
 	ld e, 4
 
+	
+	ld a, -7
+	add b
+	ld c, a
+
 	ld a, [W2_UseOBP1]
 	and a
 	jr z, .obp0
-	ld a, 11
-	cp b
-	jr nc, .obp0
+	
+	dec c
+	jr z, .alreadyZero
+.loop
+	rrca
+	dec c
+	jr nz, .loop
+.alreadyZero
+	bit 0, a
+	jr z, .obp0
+
 .obp1
 	ldh a, [rOBP1]
 	ld d, a
