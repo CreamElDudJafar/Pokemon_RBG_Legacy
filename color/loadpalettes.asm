@@ -203,3 +203,52 @@ LoadTownPalette:
 	pop af
 	ldh [rSVBK], a ; Restore wram bank
 	ret
+
+; Check Map to replace Sprites palettes in special cases
+; Like for Gym Leaders or map Pokémons
+SprPalSwap:
+	push bc
+	ld de, 3
+	call IsInArray
+	jr nc, .noMapPaletteSwap ; jump if not in list
+.loopMapPalSwap
+	ld a, [hli]
+	push af
+	ld a, [hli]
+	ld d, a
+	ld a, [hli]
+	ld e, a
+	push hl
+	call LoadMapPalette_Sprite
+	pop hl
+	pop af
+	cp [hl]
+	jr z, .loopMapPalSwap
+.noMapPaletteSwap
+	pop bc
+	ret
+
+MapSprPalSwapList:
+	; Map, new palette , palette slot to replace (0-7), palette type(0=BG, 1=Sprite)
+;	db BILLS_HOUSE,           SPRITE_PAL_BILLSMACHINE, 5
+;	db CELADON_GYM,           SPRITE_PAL_ERIKA,        4
+	db CELADON_MANSION_1F,    SPRITE_PAL_YELLOWMON,    3 ; MEOWTH
+	db CELADON_MANSION_1F,    SPRITE_PAL_BLUEMON,      5 ; NIDORANF
+;	db CERULEAN_GYM,          SPRITE_PAL_MISTY,        4
+;	db CHAMPIONS_ROOM,        SPRITE_PAL_OAK,          4
+;	db CINNABAR_GYM,          SPRITE_PAL_BLAINE,       4
+;	db FUCHSIA_GYM,           SPRITE_PAL_KOGA,         4
+;	db HALL_OF_FAME,          SPRITE_PAL_OAK,          4
+	db LAVENDER_CUBONE_HOUSE, SPRITE_PAL_BROWNMON,     4 ; CUBONE
+	db MR_FUJIS_HOUSE,        SPRITE_PAL_YELLOWMON,    5 ; PSYDUCK
+;	db OAKS_LAB,              SPRITE_PAL_OAK,          4
+;	db PALLET_TOWN,        	  SPRITE_PAL_OAK,          4
+;	db PEWTER_GYM,            SPRITE_PAL_BROCK,        4
+	db POKEMON_FAN_CLUB,      SPRITE_PAL_REDMON,       4 ; SEEL
+	db POWER_PLANT,           SPRITE_PAL_YELLOWMON,    4 ; ZAPDOS
+;	db SAFFRON_GYM,           SPRITE_PAL_SABRINA,      4
+	db SS_ANNE_B1F_ROOMS,     SPRITE_PAL_GREYMON,      4 ; MACHOKE
+	db VERMILION_CITY,        SPRITE_PAL_GREYMON,      4 ; MACHOP
+;	db VERMILION_GYM,         SPRITE_PAL_SURGE,        4
+;	db VIRIDIAN_GYM,          SPRITE_PAL_GIOVANNI,     4
+	db -1

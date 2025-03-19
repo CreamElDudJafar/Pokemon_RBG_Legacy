@@ -17,7 +17,7 @@ DEF SPR_PAL_BLUE    EQU 1
 DEF SPR_PAL_GREEN   EQU 2
 DEF SPR_PAL_BROWN   EQU 3
 DEF SPR_PAL_PURPLE  EQU 4
-DEF SPR_PAL_EMOJI   EQU 5
+DEF SPR_PAL_EXTRA2  EQU 5
 DEF SPR_PAL_TREE    EQU 6
 DEF SPR_PAL_ROCK    EQU 7
 DEF SPR_PAL_RANDOM  EQU 8
@@ -63,7 +63,8 @@ LoadOverworldSpritePalettes:
 	pop bc
 	ld a, b
 	ldh [rSVBK], a
-	jr LoadSpritePaletteData
+	call LoadSpritePaletteData
+	jr LoadSpecialOverworldSpritePalettes
 
 LoadAttackSpritePalettes:
 	ld hl, AttackSpritePalettes
@@ -89,6 +90,23 @@ LoadSpritePaletteData:
 	pop af
 	ldh [rSVBK], a
 	ret
+
+LoadSpecialOverworldSpritePalettes:
+	ldh a, [rSVBK]
+	ld b, a
+	xor a
+	ldh [rSVBK], a
+	push bc
+
+; Check map to load sprite specific palettes (list in color/loadpalettes.asm)	
+	ld a, [wCurMap]
+	ld hl, MapSprPalSwapList; loading list for identification and properties values
+	call SprPalSwap
+
+	pop af
+	ldh [rSVBK], a
+	ret
+
 
 ; Set an overworld sprite's colors
 ; On entering, A contains the flags (without a color palette) and de is the destination.
@@ -684,7 +702,7 @@ SpritePaletteAssignments: ; Characters on the overworld
 	db SPR_PAL_BLUE
 
 	; SPRITE_PSYDUCK
-	db SPR_PAL_ORANGE
+	db SPR_PAL_EXTRA2
 
 	; SPRITE_SLOWBRO
 	db SPR_PAL_ORANGE
