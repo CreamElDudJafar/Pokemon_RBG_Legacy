@@ -35,15 +35,13 @@ DisplayPokemonCenterDialogue_::
 	predef HealParty
 	farcall AnimateHealingMachine ; do the healing machine animation
 	xor a
-	ld [wMusicFade], a
-;	ld a, [wAudioSavedROMBank]
-;	ld [wAudioROMBank], a
+	ld [wAudioFadeOutControl], a
+	ld a, [wAudioSavedROMBank]
+	ld [wAudioROMBank], a
 	ld a, [wMapMusicSoundID]
 	ld [wLastMusicSoundID], a
-;	ld [wNewSoundID], a
-	call PlayMusic
-	CheckEvent EVENT_FIRST_POKECENTER
-	jr nz, .FightingFitShort
+	ld [wNewSoundID], a
+	rst _PlaySound
 	ld hl, PokemonFightingFitText
 	rst _PrintText
 .FightingFitShort

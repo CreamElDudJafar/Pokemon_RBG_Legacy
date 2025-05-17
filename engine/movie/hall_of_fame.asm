@@ -33,7 +33,7 @@ AnimateHallOfFame:
 .skipInc
 	ld a, $90
 	ldh [hWY], a
-	ld c, 0 ; BANK(Music_HallOfFame)
+	ld c, BANK(Music_HallOfFame)
 	ld a, MUSIC_HALL_OF_FAME
 	call PlayMusic
 	ld hl, wPartySpecies
@@ -309,7 +309,8 @@ HoFRecordMonInfo:
 
 HoFFadeOutScreenAndMusic:
 	ld a, 10
-	ld [wMusicFade], a
-	xor a
-	ld [wMusicFadeID], a
+	ld [wAudioFadeOutCounterReloadValue], a
+	ld [wAudioFadeOutCounter], a
+	ld a, $ff
+	ld [wAudioFadeOutControl], a
 	jp GBFadeOutToWhite

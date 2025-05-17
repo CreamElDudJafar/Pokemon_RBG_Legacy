@@ -42,7 +42,7 @@ PewterPokecenterJigglypuffText:
 	dec hl
 
 	push hl
-	ld c, 0 ; BANK(Music_JigglypuffSong)
+	ld c, BANK(Music_JigglypuffSong)
 	ld a, MUSIC_JIGGLYPUFF_SONG
 	call PlayMusic
 	pop hl
@@ -61,16 +61,11 @@ PewterPokecenterJigglypuffText:
 	pop hl
 	ld c, 24
 	rst _DelayFrames
-
-	push hl
-	call IsSongPlaying
-	pop hl
-	jr c, .spinMovementLoop
-;	ld a, [wChannelSoundIDs]
-;	ld b, a
-;	ld a, [wChannelSoundIDs + CHAN2]
-;	or b
-;	jr nz, .spinMovementLoop
+	ld a, [wChannelSoundIDs]
+	ld b, a
+	ld a, [wChannelSoundIDs + CHAN2]
+	or b
+	jr nz, .spinMovementLoop
 
 	ld c, 48
 	rst _DelayFrames

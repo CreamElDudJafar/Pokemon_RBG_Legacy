@@ -227,7 +227,8 @@ BillsPCDeposit:
 	call DisplayDepositWithdrawMenu
 	jp nc, .doneDepositDialogBox
 	ld a, [wcf91]
-	call PlayCry
+	call GetCryData
+	call PlaySoundWaitForCurrent
 	ld a, PARTY_TO_BOX
 	ld [wMoveMonType], a
 	call MoveMon
@@ -306,7 +307,8 @@ BillsPCWithdraw:
 	ld hl, wBoxMonNicks
 	call GetPartyMonName
 	ld a, [wcf91]
-	call PlayCry
+	call GetCryData
+	call PlaySoundWaitForCurrent
 	xor a ; BOX_TO_PARTY
 	ld [wMoveMonType], a
 	call MoveMon

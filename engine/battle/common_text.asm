@@ -60,10 +60,10 @@ PrintBeginningBattleText:
 	rst _PrintText
 
 .playSFX
-;	xor a
-;	ld [wFrequencyModifier], a
-;	ld a, $80
-;	ld [wTempoModifier], a
+	xor a
+	ld [wFrequencyModifier], a
+	ld a, $80
+	ld [wTempoModifier], a
 	ld a, SFX_SILPH_SCOPE
 	rst _PlaySound
 	jp WaitForSoundToFinish

@@ -339,12 +339,12 @@ PlayShootingStar:
 	ld c, 40
 	rst _DelayFrames
 .next
-;	ld a, 0 ; BANK(Music_IntroBattle)
-;	ld [wAudioROMBank], a
-;	ld [wAudioSavedROMBank], a
+	ld a, BANK(Music_IntroBattle)
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, MUSIC_INTRO_BATTLE
-;	ld [wNewSoundID], a
-	call PlayMusic
+	ld [wNewSoundID], a
+	call PlaySound
 	call IntroClearMiddleOfScreen
 	call ClearSprites
 	jp Delay3

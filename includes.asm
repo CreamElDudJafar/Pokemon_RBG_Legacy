@@ -1,5 +1,4 @@
-DEF GEN_2_GRAPHICS EQU 0
-DEF GEN_2_MUSIC    EQU 0
+DEF GEN_2_GRAPHICS EQU 1
 
 DEF SNOW           EQU 0
 
@@ -15,7 +14,7 @@ INCLUDE "macros/gfx.asm"
 INCLUDE "macros/coords.asm"
 INCLUDE "macros/vc.asm"
 
-;INCLUDE "macros/scripts/audio.asm"
+INCLUDE "macros/scripts/audio.asm"
 INCLUDE "macros/scripts/maps.asm"
 INCLUDE "macros/scripts/events.asm"
 INCLUDE "macros/scripts/text.asm"
@@ -52,7 +51,7 @@ INCLUDE "constants/map_object_constants.asm"
 INCLUDE "constants/hide_show_constants.asm"
 INCLUDE "constants/sprite_set_constants.asm"
 INCLUDE "constants/credits_constants.asm"
-;INCLUDE "constants/audio_constants.asm"
+INCLUDE "constants/audio_constants.asm"
 INCLUDE "constants/music_constants.asm"
 INCLUDE "constants/tileset_constants.asm"
 INCLUDE "constants/event_constants.asm"

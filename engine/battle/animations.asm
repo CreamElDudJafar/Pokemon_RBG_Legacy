@@ -204,7 +204,7 @@ PlayAnimation:
 	push hl
 	push de
 	call GetMoveSound
-	call nc, PlayBattleSound
+	call PlaySound
 	pop de
 	pop hl
 .skipPlayingSound
@@ -413,6 +413,7 @@ MoveAnimationContent:
 	call nz, SetMoveDexSeen
 	call SetAnimationPalette
 ;;;;;;;;;;
+SetMoveDexSeen:
 	ld a, [wAnimationID]
 	and a
 	jr z, .animationFinished
@@ -592,7 +593,7 @@ PlaySubanimation:
 	cp NO_MOVE - 1
 	jr z, .skipPlayingSound
 	call GetMoveSound
-	call nc, PlayBattleSound
+	call PlaySound
 .skipPlayingSound
 	ld hl, wShadowOAM
 	ld a, l
@@ -2247,44 +2248,25 @@ GetMoveSound:
 .next
 	ld a, [wEnemyMonSpecies]
 .Continue
-
-	push af
-	ld a, 1
-	ld [wSFXDontWait], a
-	pop af
-	call PlayCry
-	xor a
-	ld [wSFXDontWait], a
-	ld a, b
-	scf
-	ret
-;	push hl
-;	call GetCryData
-;	ld b, a
-;	pop hl
-;	ld a, [wFrequencyModifier]
-;	add [hl]
-;	ld [wFrequencyModifier], a
-;	inc hl
-;	ld a, [wTempoModifier]
-;	add [hl]
-;	ld [wTempoModifier], a
-;	jr .done
-
+	push hl
+	call GetCryData
+	ld b, a
+	pop hl
+	ld a, [wFrequencyModifier]
+	add [hl]
+	ld [wFrequencyModifier], a
+	inc hl
+	ld a, [wTempoModifier]
+	add [hl]
+	ld [wTempoModifier], a
+	jr .done
 .NotCryMove
-	push bc
 	ld a, [hli]
-	ld c, a
-	ld b, 0
+	ld [wFrequencyModifier], a
 	ld a, [hli]
-	add $80
-	ld e, a
-	ld a, 0
-	adc 0
-	ld d, a
-	pop af
+	ld [wTempoModifier], a
 .done
-	and a
+	ld a, b
 	ret
 
 IsCryMove:
@@ -2695,37 +2677,20 @@ PlayApplyingAttackSound:
 	and $7f
 	ret z
 	cp 10
-	ld bc, $20
-	ld de, $30 + $80
-	ld a, SFX_DAMAGE
+	ld a, $20
+	ld b, $30
+	ld c, SFX_DAMAGE
 	jr z, .playSound
-	ld bc, $e0
-	ld de, $ff + $80
-	ld a, SFX_SUPER_EFFECTIVE
+	ld a, $e0
+	ld b, $ff
+	ld c, SFX_SUPER_EFFECTIVE
 	jr nc, .playSound
-	ld bc, $50
-	ld de, $1 + $80
-	ld a, SFX_NOT_VERY_EFFECTIVE
+	ld a, $50
+	ld b, $1
+	ld c, SFX_NOT_VERY_EFFECTIVE
 .playSound
-;	ld [wFrequencyModifier], a
-;	ld a, b
-;	ld [wTempoModifier], a
-;	ld a, c
-	jp PlayBattleSound
-
-;;;;;;;;;; PureRGBnote: ADDED: code for setting moves as seen for the movedex
-SetMoveDexSeen:
-	ld a, [wAnimationID]
-	and a
-	ret z ; NO_MOVE doesn't count
-	dec a
-	cp NUM_ATTACKS + 1
-	ret nc ; non-move animations don't count
-	ld c, a
-	ld b, FLAG_SET
-	ld hl, wMovedexSeen
-	predef FlagActionPredef ; mark this move as seen in the movedex
-	ld hl, wBattleFunctionalFlags
-	res 0, [hl]
-	ret
-;;;;;;;;;;
+	ld [wFrequencyModifier], a
+	ld a, b
+	ld [wTempoModifier], a
+	ld a, c
+	jp PlaySound

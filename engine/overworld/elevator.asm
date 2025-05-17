@@ -17,9 +17,9 @@ ShakeElevator::
 	add d
 	ldh [hSCY], a
 	push bc
-	ld c, 0 ; BANK(SFX_Collision_1)
+	ld c, BANK(SFX_Collision_1)
 	ld a, SFX_COLLISION
-	rst _PlaySound
+	call PlayMusic
 	pop bc
 	ld c, 2
 	rst _DelayFrames
@@ -29,13 +29,13 @@ ShakeElevator::
 	ldh [hSCY], a
 	ld a, SFX_STOP_ALL_MUSIC
 	rst _PlaySound
-	ld c, 0 ; BANK(SFX_Safari_Zone_PA)
+	ld c, BANK(SFX_Safari_Zone_PA)
 	ld a, SFX_SAFARI_ZONE_PA
-	rst _PlaySound
-;.musicLoop
-;	ld a, [wChannelSoundIDs + CHAN5]
-;	cp SFX_SAFARI_ZONE_PA
-;	jr z, .musicLoop
+	call PlayMusic
+.musicLoop
+	ld a, [wChannelSoundIDs + CHAN5]
+	cp SFX_SAFARI_ZONE_PA
+	jr z, .musicLoop
 	call UpdateSprites
 	jp PlayDefaultMusic
 

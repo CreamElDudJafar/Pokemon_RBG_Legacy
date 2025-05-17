@@ -1,5 +1,4 @@
-SFX_Pokeflute_Ch7:
-	toggle_sfx
+SFX_Pokeflute_Ch3:
 	vibrato 16, 1, 4
 	note_type 12, 1, 0
 	octave 5

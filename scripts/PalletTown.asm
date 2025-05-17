@@ -30,7 +30,7 @@ PalletTownDefaultScript:
 	ld [wPlayerMovingDirection], a
 	ld a, SFX_STOP_ALL_MUSIC
 	rst _PlaySound
-	ld a, 0 ; BANK(Music_MeetProfOak)
+	ld a, BANK(Music_MeetProfOak)
 	ld c, a
 	ld a, MUSIC_MEET_PROF_OAK ; "oak appears" music
 	call PlayMusic

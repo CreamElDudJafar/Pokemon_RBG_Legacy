@@ -423,12 +423,12 @@ PlayTrainerMusic::
 	and a
 	ret nz
 	xor a
-	ld [wMusicFade], a
+	ld [wAudioFadeOutControl], a
 	ld a, SFX_STOP_ALL_MUSIC
 	rst _PlaySound
-;	ld a, 0 ; BANK(Music_MeetEvilTrainer)
-;	ld [wAudioROMBank], a
-;	ld [wAudioSavedROMBank], a
+	ld a, BANK(Music_MeetEvilTrainer)
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, [wEngagedTrainerClass]
 	ld b, a
 	ld hl, EvilTrainerList
@@ -453,7 +453,7 @@ PlayTrainerMusic::
 .maleTrainer
 	ld a, MUSIC_MEET_MALE_TRAINER
 .PlaySound
-;	ld [wNewSoundID], a
-	jp PlayMusic
+	ld [wNewSoundID], a
+	jp PlaySound
 
 INCLUDE "data/trainers/encounter_types.asm"
